@@ -1,0 +1,4 @@
+(library
+ (name Ezjsonm_encoding)
+ (public_name ezjsonm-encoding)
+ (libraries ezjsonm))

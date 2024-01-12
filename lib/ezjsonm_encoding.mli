@@ -59,6 +59,17 @@ val from_string : 'a t -> string -> 'a option
     valid JSON value, or if [encoding] cannot construct an OCaml value from
     [str]. *)
 
+val from_value_exn : 'a t -> Ezjsonm.value -> 'a
+(** [from_value_exn encoding value] uses [encoding] to construct an OCaml
+    value from [value]. Will raise an exception if [encoding] cannot construct
+    an OCaml value from [value]. *)
+
+val from_value : 'a t -> Ezjsonm.value -> 'a option
+(** [from_string encoding str] decodes a JSON value from [str], then uses
+    [encoding] to construct an OCaml value. Will return [None] if [str] is not a
+    valid JSON value, or if [encoding] cannot construct an OCaml value from
+    [str]. *)
+
 val conv : ('a -> 'b) -> ('b -> 'a) -> 'b t -> 'a t
 (** [conv f g encoding] crafts a new encoding from [encoding]. This is
     typically used to creates a JSON encoder/decoder for OCaml records by
@@ -341,13 +352,20 @@ module Decoding : sig
   val from_encoding : 'a encoding -> 'a t
   (** [from_encoding] specializes an Ezjsonmer encoding to be a decoder. *)
 
-  val of_string : 'a t -> string -> 'a option
-  (** [of_string enc input] interprets [input] as a serialized Json
+  val from_string : 'a t -> string -> 'a option
+  (** [from_string enc input] interprets [input] as a serialized Json
       value, then uses [enc] to decode it into an OCaml value, if
       possible. It returns [None] in case of error. *)
 
-  val of_string_exn : 'a t -> string -> 'a
-  (** Same as [of_string], but raises exceptions in case of error. *)
+  val from_string_exn : 'a t -> string -> 'a
+  (** Same as [from_string], but raises exceptions in case of error. *)
+
+  val from_value : 'a t -> Ezjsonm.value -> 'a option
+  (** [from_value enc value] uses [enc] to decode [value] into an OCaml value,
+      if possible. It returns [None] in case of error. *)
+
+  val from_value_exn : 'a t -> Ezjsonm.value -> 'a
+  (** Same as [from_value], but raises exceptions in case of error. *)
 
   (** This modules provides a monadic interface to compose existing
       decoders together. *)

@@ -45,8 +45,10 @@ let string_enum l =
   with Not_found -> failwith (constant ^ " not a correct value")
 
 let bool = Ezjsonm.get_bool
-let of_string_exn dec str = Ezjsonm.value_from_string str |> dec
-let of_string dec str = try Some (of_string_exn dec str) with _ -> None
+let from_string_exn dec str = Ezjsonm.value_from_string str |> dec
+let from_string dec str = try Some (from_string_exn dec str) with _ -> None
+let from_value_exn dec value = dec value
+let from_value dec str = try Some (from_value_exn dec str) with _ -> None
 
 let rec mu : ('a t -> 'a t) -> 'a t =
  fun f_enc value -> (f_enc (mu f_enc)) value

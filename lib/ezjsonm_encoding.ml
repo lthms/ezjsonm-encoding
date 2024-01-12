@@ -13,8 +13,13 @@ let to_string_exn ~minify jsoner value =
 let to_string ~minify jsoner value =
   try Some (to_string_exn ~minify jsoner value) with _ -> None
 
+let from_value_exn jsoner value = jsoner.decoder value
+
+let from_value jsoner value =
+  try Some (from_value_exn jsoner value) with _ -> None
+
 let from_string_exn jsoner string =
-  jsoner.decoder (Ezjsonm.value_from_string string)
+  Ezjsonm.value_from_string string |> from_value_exn jsoner
 
 let from_string jsoner value =
   try Some (from_string_exn jsoner value) with _ -> None

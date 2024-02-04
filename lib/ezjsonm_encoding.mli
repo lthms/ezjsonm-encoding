@@ -2,8 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. *)
 
-(** [ezjsonm-encoding] is an encoding combinators library for [Ezjsonm] whose
-    API is heavily inspired by [data-encoding].
+(** An encoding combinators library for [Ezjsonm] whose API, heavily inspired
+    by [data-encoding].
 
     The two main differences between [ezjsonm-encoding] and the JSON support of
     data-encoding are:

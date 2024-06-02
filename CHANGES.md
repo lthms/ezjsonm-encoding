@@ -1,3 +1,7 @@
+# 2.1.0 Unreleased
+
+- Add the `constant` combinator, typically used to tag objects.
+
 # 2.0.0 (2024-01-12)
 
 - Rename `Decoding.of_string` into `Decoding.from_string` for consistency with

@@ -107,6 +107,28 @@ val string_enum : (string * 'a) list -> 'a t
         (* On *)
     ]} *)
 
+val constant : string -> unit t
+(** [constant name] maps the JSON string [name] to [()]. A typical use case for
+    [constant] is to tag objects.
+
+    {[
+      open Ezjsonm_encoding
+
+      let encoding =
+        conv
+          (fun str -> ((), str))
+          (fun ((), str) -> str)
+          (obj2
+            (req "purpose" (constant "name"))
+            (req "value" string))
+
+      let json = to_value_exn encoding "Thomas"
+        (* `O [("value", `String "Thomas"); ("purpose", `String "name")] *)
+
+      let value = from_string_exn encoding {|{"purpose": "name", "value": "Thomas"}|}
+        (* "Thomas" *)
+    ]} *)
+
 val string : string t
 (** The encoding which maps JSON strings and OCaml strings.
 

@@ -70,6 +70,9 @@ val from_value : 'a t -> Ezjsonm.value -> 'a option
     valid JSON value, or if [encoding] cannot construct an OCaml value from
     [str]. *)
 
+val json : Ezjsonm.value t
+(** The identity encoding. *)
+
 val conv : ('a -> 'b) -> ('b -> 'a) -> 'b t -> 'a t
 (** [conv f g encoding] crafts a new encoding from [encoding]. This is
     typically used to creates a JSON encoder/decoder for OCaml records by

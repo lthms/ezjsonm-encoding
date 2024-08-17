@@ -24,6 +24,8 @@ let from_string_exn jsoner string =
 let from_string jsoner value =
   try Some (from_string_exn jsoner value) with _ -> None
 
+let json = { decoder = Fun.id; encoder = Fun.id }
+
 let conv from_value to_value jsoner =
   {
     decoder = (fun json -> jsoner.decoder json |> to_value);

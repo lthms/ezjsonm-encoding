@@ -37,6 +37,9 @@ let string = { decoder = Decoder.string; encoder = Encoder.string }
 let string_enum l =
   { encoder = Encoder.string_enum l; decoder = Decoder.string_enum l }
 
+let enum { encoder; decoder } l =
+  { encoder = Encoder.enum encoder l; decoder = Decoder.enum decoder l }
+
 let constant c = string_enum [ (c, ()) ]
 
 let list { decoder; encoder } =

@@ -7,6 +7,7 @@
 - Add the `union` combinator.
 - Add the `dft` field combinator.
 - Add the `json` combinator.
+- Add the `enum` combinator.
 
 # 2.0.0 (2024-01-12)
 

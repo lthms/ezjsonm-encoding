@@ -49,12 +49,13 @@ let int64 = Ezjsonm.get_int64
 let int = Ezjsonm.get_int
 let null = Ezjsonm.get_unit
 
-let string_enum l =
+let enum enc l =
   let open Syntax in
-  let+ constant = string in
+  let+ constant = enc in
   try List.assoc constant l
-  with Not_found -> failwith (constant ^ " not a correct value")
+  with Not_found -> raise (Invalid_argument "Decoder.enum")
 
+let string_enum l = enum string l
 let bool = Ezjsonm.get_bool
 let from_string_exn dec str = Ezjsonm.value_from_string str |> dec
 let from_string dec str = try Some (from_string_exn dec str) with _ -> None

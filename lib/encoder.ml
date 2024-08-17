@@ -38,12 +38,14 @@ let field_dft :
   | `O fields -> `O ((name, enc value) :: fields)
   | _ -> raise (Invalid_argument "Json_encoder.field")
 
-let string_enum l value =
+let enum enc l value =
   let rec assoc_rev x = function
     | [] -> raise Not_found
     | (a, b) :: l -> if compare b x = 0 then a else assoc_rev x l
   in
-  Ezjsonm.string @@ assoc_rev value l
+  enc @@ assoc_rev value l
+
+let string_enum l = enum string l
 
 let rec union cases v =
   match cases with

@@ -110,6 +110,24 @@ val string_enum : (string * 'a) list -> 'a t
         (* On *)
     ]} *)
 
+val enum : 'b t -> ('b * 'a) list -> 'a t
+(** [enum] is a more generic version of [string_enum], taking an encoder to
+    deal with the supported constant values.
+
+    {[
+      open Ezjsonm_encoding
+
+      type toggle = On | Off
+
+      let toggle_encoding = enum int [ 1, On; 2, Off ]
+
+      let json = to_value_exn toggle_encoding On
+        (* `Float 1. *)
+
+      let toggle = from_string_exn toggle_encoding {|1|}
+        (* On *)
+    ]} *)
+
 val constant : string -> unit t
 (** [constant name] maps the JSON string [name] to [()]. A typical use case for
     [constant] is to tag objects.

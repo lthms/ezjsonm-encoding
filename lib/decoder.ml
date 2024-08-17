@@ -36,6 +36,13 @@ let field_opt str enc value =
     | None -> None
   with _exn -> None
 
+let field_dft str enc default value =
+  try
+    match Ezjsonm.find_opt value [ str ] with
+    | Some x -> enc x
+    | None -> default
+  with _exn -> default
+
 let list enc = Ezjsonm.get_list enc
 let string = Ezjsonm.get_string
 let int64 = Ezjsonm.get_int64

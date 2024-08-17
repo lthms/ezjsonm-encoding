@@ -24,6 +24,20 @@ let field_opt :
  fun name enc value json ->
   match value with Some value -> field name enc value json | None -> json
 
+let field_dft :
+    ('a -> 'a -> bool) ->
+    string ->
+    'a t ->
+    'a ->
+    'a ->
+    Ezjsonm.value ->
+    Ezjsonm.value =
+ fun equal name enc default value json ->
+  match json with
+  | `O fields when equal default value -> `O fields
+  | `O fields -> `O ((name, enc value) :: fields)
+  | _ -> raise (Invalid_argument "Json_encoder.field")
+
 let string_enum l value =
   let rec assoc_rev x = function
     | [] -> raise Not_found

@@ -63,6 +63,12 @@ let opt name { encoder; decoder } =
     field_decoder = Decoder.field_opt name decoder;
   }
 
+let dft ?(equal = ( = )) name { encoder; decoder } default =
+  {
+    field_encoder = Encoder.field_dft equal name encoder default;
+    field_decoder = Decoder.field_dft name decoder default;
+  }
+
 let obj0 = { encoder = Encoder.obj0; decoder = Decoder.obj0 }
 
 let obj1 f =

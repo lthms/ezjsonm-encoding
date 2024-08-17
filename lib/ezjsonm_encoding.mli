@@ -227,9 +227,9 @@ val empty : unit t
     ]} *)
 
 type 'a field
-(** The description of one field of a JSON object. See {!req} and {!opt} to
-    construct [field] values, and {!obj1} to {!obj10} and {!merge_objs} to
-    construct encoding for objects. *)
+(** The description of one field of a JSON object. See {!req}, {!opt} and
+    {!dft} to construct [field] values, and {!obj1} to {!obj10} and
+    {!merge_objs} to construct encoding for objects. *)
 
 val req : string -> 'a t -> 'a field
 (** [req field_name encoding] represents a {i required} field. That is,
@@ -267,6 +267,30 @@ val opt : string -> 'a t -> 'a option field
 
       let str = from_string (obj1 (opt "hello" string)) {|{ "bye": "world!"}|}
         (* Some None *)
+    ]} *)
+
+val dft : ?equal:('a -> 'a -> bool) -> string -> 'a t -> 'a -> 'a field
+(** [dft field_name encoding default] represents an {i optional} field that
+    defaults to [default] in OCaml if missing. The field is omitted when
+    encoding if the value is equal (according to [equal], defaulting to {!(=)})
+    the default value.
+
+    If the field is present but cannot be decoded by [encoding], then [default]
+    is returned. This may change in a future version of this library.
+
+    {[
+      open Ezjsonm_encoding
+
+      let encoding = obj1 (dft "hello" string "world!")
+
+      let json1 = to_value_exn encoding "friend!"
+      (* `O [("hello", `String "friend!")] *)
+
+      let json2 = to_value_exn encoding "world!"
+      (* `O [] *)
+
+      let str = from_string_exn encoding {|{ "hello": "Kat!"}|}
+      (* "Kat!" *)
     ]} *)
 
 val obj0 : unit t

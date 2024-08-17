@@ -1,4 +1,4 @@
-# 2.1.0 Unreleased
+# 2.1.0 (2024-08-18)
 
 - Add the `constant` combinator, typically used to tag objects.
 - Add the `null` combinator.
@@ -9,6 +9,7 @@
 - Add the `json` combinator.
 - Add the `enum` combinator.
 - Add the `satisfies` combinator.
+- Add the `tupN` combinators family (`tup1` to `tup10`).
 
 # 2.0.0 (2024-01-12)
 

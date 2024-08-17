@@ -247,6 +247,97 @@ val empty : unit t
         (* () *)
     ]} *)
 
+val tup1 : 'a t -> 'a t
+(** [tup1 f] represents an array characterized by the positional (mandatory)
+    element [f].
+
+    {[
+      open Ezjsonm_encoding
+
+      let json = to_value_exn (tup1 int) 1
+      (* `A [`Float 1.] *)
+    ]} *)
+
+val tup2 : 'a t -> 'b t -> ('a * 'b) t
+(** [tup2 f1 f2] represents an array characterized by two positional (mandatory)
+    elements [f1] and [f2].
+
+    {[
+      open Ezjsonm_encoding
+
+      let json = to_value_exn (tup2 int string) (1, "hello")
+      (* `A [`Float 1.; `String "hello"] *)
+    ]} *)
+
+val tup3 : 'a t -> 'b t -> 'c t -> ('a * 'b * 'c) t
+(** Same as {!tup2} but with three positional elements. *)
+
+val tup4 : 'a t -> 'b t -> 'c t -> 'd t -> ('a * 'b * 'c * 'd) t
+(** Same as {!tup2} but with four positional elements. *)
+
+val tup5 : 'a t -> 'b t -> 'c t -> 'd t -> 'e t -> ('a * 'b * 'c * 'd * 'e) t
+(** Same as {!tup2} but with five positional elements. *)
+
+val tup6 :
+  'a t ->
+  'b t ->
+  'c t ->
+  'd t ->
+  'e t ->
+  'f t ->
+  ('a * 'b * 'c * 'd * 'e * 'f) t
+(** Same as {!tup2} but with six positional elements. *)
+
+val tup7 :
+  'a t ->
+  'b t ->
+  'c t ->
+  'd t ->
+  'e t ->
+  'f t ->
+  'i t ->
+  ('a * 'b * 'c * 'd * 'e * 'f * 'i) t
+(** Same as {!tup2} but with seven positional elements. *)
+
+val tup8 :
+  'a t ->
+  'b t ->
+  'c t ->
+  'd t ->
+  'e t ->
+  'f t ->
+  'i t ->
+  'j t ->
+  ('a * 'b * 'c * 'd * 'e * 'f * 'i * 'j) t
+(** Same as {!tup2} but with eight positional elements. *)
+
+val tup9 :
+  'a t ->
+  'b t ->
+  'c t ->
+  'd t ->
+  'e t ->
+  'f t ->
+  'i t ->
+  'j t ->
+  'k t ->
+  ('a * 'b * 'c * 'd * 'e * 'f * 'i * 'j * 'k) t
+(** Same as {!tup2} but with nine positional elements. *)
+
+val tup10 :
+  'a t ->
+  'b t ->
+  'c t ->
+  'd t ->
+  'e t ->
+  'f t ->
+  'i t ->
+  'j t ->
+  'k t ->
+  'l t ->
+  ('a * 'b * 'c * 'd * 'e * 'f * 'i * 'j * 'k * 'l) t
+(** Same as {!tup2} but with 10 positional elements. *)
+
 type 'a field
 (** The description of one field of a JSON object. See {!req}, {!opt} and
     {!dft} to construct [field] values, and {!obj1} to {!obj10} and

@@ -51,6 +51,214 @@ let null = { decoder = Decoder.null; encoder = Encoder.null }
 let bool = { decoder = Decoder.bool; encoder = Encoder.bool }
 let empty = { decoder = Decoder.empty; encoder = Encoder.empty }
 
+let tup1 f1 =
+  {
+    decoder =
+      (function
+      | `A [ x ] -> f1.decoder x
+      | _ -> raise (Invalid_argument "tup1: expected a list of 1 element"));
+    encoder = (fun v -> `A [ f1.encoder v ]);
+  }
+
+let tup2 f1 f2 =
+  {
+    decoder =
+      (function
+      | `A [ x1; x2 ] -> (f1.decoder x1, f2.decoder x2)
+      | _ -> raise (Invalid_argument "tup2: expected a list of 2 elements"));
+    encoder = (fun (v1, v2) -> `A [ f1.encoder v1; f2.encoder v2 ]);
+  }
+
+let tup3 f1 f2 f3 =
+  {
+    decoder =
+      (function
+      | `A [ x1; x2; x3 ] -> (f1.decoder x1, f2.decoder x2, f3.decoder x3)
+      | _ -> raise (Invalid_argument "tup3: expected a list of 3 elements"));
+    encoder =
+      (fun (v1, v2, v3) -> `A [ f1.encoder v1; f2.encoder v2; f3.encoder v3 ]);
+  }
+
+let tup4 f1 f2 f3 f4 =
+  {
+    decoder =
+      (function
+      | `A [ x1; x2; x3; x4 ] ->
+          (f1.decoder x1, f2.decoder x2, f3.decoder x3, f4.decoder x4)
+      | _ -> raise (Invalid_argument "tup4: expected a list of 4 elements"));
+    encoder =
+      (fun (v1, v2, v3, v4) ->
+        `A [ f1.encoder v1; f2.encoder v2; f3.encoder v3; f4.encoder v4 ]);
+  }
+
+let tup5 f1 f2 f3 f4 f5 =
+  {
+    decoder =
+      (function
+      | `A [ x1; x2; x3; x4; x5 ] ->
+          ( f1.decoder x1,
+            f2.decoder x2,
+            f3.decoder x3,
+            f4.decoder x4,
+            f5.decoder x5 )
+      | _ -> raise (Invalid_argument "tup5: expected a list of 5 elements"));
+    encoder =
+      (fun (v1, v2, v3, v4, v5) ->
+        `A
+          [
+            f1.encoder v1;
+            f2.encoder v2;
+            f3.encoder v3;
+            f4.encoder v4;
+            f5.encoder v5;
+          ]);
+  }
+
+let tup6 f1 f2 f3 f4 f5 f6 =
+  {
+    decoder =
+      (function
+      | `A [ x1; x2; x3; x4; x5; x6 ] ->
+          ( f1.decoder x1,
+            f2.decoder x2,
+            f3.decoder x3,
+            f4.decoder x4,
+            f5.decoder x5,
+            f6.decoder x6 )
+      | _ -> raise (Invalid_argument "tup6: expected a list of 6 elements"));
+    encoder =
+      (fun (v1, v2, v3, v4, v5, v6) ->
+        `A
+          [
+            f1.encoder v1;
+            f2.encoder v2;
+            f3.encoder v3;
+            f4.encoder v4;
+            f5.encoder v5;
+            f6.encoder v6;
+          ]);
+  }
+
+let tup7 f1 f2 f3 f4 f5 f6 f7 =
+  {
+    decoder =
+      (function
+      | `A [ x1; x2; x3; x4; x5; x6; x7 ] ->
+          ( f1.decoder x1,
+            f2.decoder x2,
+            f3.decoder x3,
+            f4.decoder x4,
+            f5.decoder x5,
+            f6.decoder x6,
+            f7.decoder x7 )
+      | _ -> raise (Invalid_argument "tup7: expected a list of 7 elements"));
+    encoder =
+      (fun (v1, v2, v3, v4, v5, v6, v7) ->
+        `A
+          [
+            f1.encoder v1;
+            f2.encoder v2;
+            f3.encoder v3;
+            f4.encoder v4;
+            f5.encoder v5;
+            f6.encoder v6;
+            f7.encoder v7;
+          ]);
+  }
+
+let tup8 f1 f2 f3 f4 f5 f6 f7 f8 =
+  {
+    decoder =
+      (function
+      | `A [ x1; x2; x3; x4; x5; x6; x7; x8 ] ->
+          ( f1.decoder x1,
+            f2.decoder x2,
+            f3.decoder x3,
+            f4.decoder x4,
+            f5.decoder x5,
+            f6.decoder x6,
+            f7.decoder x7,
+            f8.decoder x8 )
+      | _ -> raise (Invalid_argument "tup8: expected a list of 8 elements"));
+    encoder =
+      (fun (v1, v2, v3, v4, v5, v6, v7, v8) ->
+        `A
+          [
+            f1.encoder v1;
+            f2.encoder v2;
+            f3.encoder v3;
+            f4.encoder v4;
+            f5.encoder v5;
+            f6.encoder v6;
+            f7.encoder v7;
+            f8.encoder v8;
+          ]);
+  }
+
+let tup9 f1 f2 f3 f4 f5 f6 f7 f8 f9 =
+  {
+    decoder =
+      (function
+      | `A [ x1; x2; x3; x4; x5; x6; x7; x8; x9 ] ->
+          ( f1.decoder x1,
+            f2.decoder x2,
+            f3.decoder x3,
+            f4.decoder x4,
+            f5.decoder x5,
+            f6.decoder x6,
+            f7.decoder x7,
+            f8.decoder x8,
+            f9.decoder x9 )
+      | _ -> raise (Invalid_argument "tup9: expected a list of 9 elements"));
+    encoder =
+      (fun (v1, v2, v3, v4, v5, v6, v7, v8, v9) ->
+        `A
+          [
+            f1.encoder v1;
+            f2.encoder v2;
+            f3.encoder v3;
+            f4.encoder v4;
+            f5.encoder v5;
+            f6.encoder v6;
+            f7.encoder v7;
+            f8.encoder v8;
+            f9.encoder v9;
+          ]);
+  }
+
+let tup10 f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 =
+  {
+    decoder =
+      (function
+      | `A [ x1; x2; x3; x4; x5; x6; x7; x8; x9; x10 ] ->
+          ( f1.decoder x1,
+            f2.decoder x2,
+            f3.decoder x3,
+            f4.decoder x4,
+            f5.decoder x5,
+            f6.decoder x6,
+            f7.decoder x7,
+            f8.decoder x8,
+            f9.decoder x9,
+            f10.decoder x10 )
+      | _ -> raise (Invalid_argument "tup10: expected a list of 10 elements"));
+    encoder =
+      (fun (v1, v2, v3, v4, v5, v6, v7, v8, v9, v10) ->
+        `A
+          [
+            f1.encoder v1;
+            f2.encoder v2;
+            f3.encoder v3;
+            f4.encoder v4;
+            f5.encoder v5;
+            f6.encoder v6;
+            f7.encoder v7;
+            f8.encoder v8;
+            f9.encoder v9;
+            f10.encoder v10;
+          ]);
+  }
+
 type 'a field = {
   field_encoder : 'a -> Ezjsonm.value -> Ezjsonm.value;
   field_decoder : 'a Decoder.t;

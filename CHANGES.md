@@ -2,6 +2,8 @@
 
 - Add the `constant` combinator, typically used to tag objects.
 - Add the `null` combinator.
+- Add `obj0` (matches any object) and `empty` (matches the empty object)
+  combinators.
 
 # 2.0.0 (2024-01-12)
 

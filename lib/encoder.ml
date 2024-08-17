@@ -10,6 +10,8 @@ let list = Ezjsonm.list
 let int64 = Ezjsonm.int64
 let int = Ezjsonm.int
 let null = Ezjsonm.unit
+let empty () : Ezjsonm.value = `O []
+let obj0 = empty
 
 let field : string -> 'a t -> 'a -> Ezjsonm.value -> Ezjsonm.value =
  fun name enc value json ->

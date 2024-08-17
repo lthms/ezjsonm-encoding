@@ -44,6 +44,7 @@ let int64 = { decoder = Decoder.int64; encoder = Encoder.int64 }
 let int = { decoder = Decoder.int; encoder = Encoder.int }
 let null = { decoder = Decoder.null; encoder = Encoder.null }
 let bool = { decoder = Decoder.bool; encoder = Encoder.bool }
+let empty = { decoder = Decoder.empty; encoder = Encoder.empty }
 
 type 'a field = {
   field_encoder : 'a -> Ezjsonm.value -> Ezjsonm.value;
@@ -61,6 +62,8 @@ let opt name { encoder; decoder } =
     field_encoder = Encoder.field_opt name encoder;
     field_decoder = Decoder.field_opt name decoder;
   }
+
+let obj0 = { encoder = Encoder.obj0; decoder = Decoder.obj0 }
 
 let obj1 f =
   {

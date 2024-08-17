@@ -19,6 +19,7 @@ module Syntax = struct
   let return x _value = x
 end
 
+let empty = function `O [] -> () | _ -> failwith "not an empty object"
 let obj0 = function `O _ -> () | _ -> failwith "not an object"
 
 let field str enc value =

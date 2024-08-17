@@ -211,6 +211,21 @@ val list : 'a t -> 'a list t
     ]}
     *)
 
+val empty : unit t
+(** [empty] maps the empty object to the OCaml unit value. Contrary to [obj0],
+    it is strict. That is, objects with fields will be rejected by this
+    encoding.
+
+    {[
+      open Ezjsonm_encoding
+
+      let json = to_value_exn empty ()
+        (* `O [] *)
+
+      let str = from_string_exn empty "{}"
+        (* () *)
+    ]} *)
+
 type 'a field
 (** The description of one field of a JSON object. See {!req} and {!opt} to
     construct [field] values, and {!obj1} to {!obj10} and {!merge_objs} to
@@ -253,6 +268,11 @@ val opt : string -> 'a t -> 'a option field
       let str = from_string (obj1 (opt "hello" string)) {|{ "bye": "world!"}|}
         (* Some None *)
     ]} *)
+
+val obj0 : unit t
+(** [obj0] represents the empty object. Since [ezjsonm-encoding] default
+    behavior is to ignore unspecified fields, [obj0] matches any objects. Use
+    {!empty} if you want to reject non-empty objects. *)
 
 val obj1 : 'a field -> 'a t
 (** [obj1 f] represents an object characterized by {i at least} the field [f].

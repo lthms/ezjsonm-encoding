@@ -253,6 +253,9 @@ val opt : string -> 'a t -> 'a option field
 (** [opt field_name encoding] represents an {i optional} field ({i i.e.}, wrapped
     in an [option]).
 
+    If the field is present but cannot be decoded by [encoding], then [None] is
+    returned. This may change in a future version of this library.
+
     {[
       open Ezjsonm_encoding
 

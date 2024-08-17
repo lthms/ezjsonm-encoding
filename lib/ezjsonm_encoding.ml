@@ -261,6 +261,19 @@ let union cases =
     encoder = Encoder.union (List.map (fun { encoder; _ } -> encoder) cases);
   }
 
+let satisfies cond { decoder; encoder } =
+  {
+    decoder =
+      (fun v ->
+        match decoder v with
+        | x when cond x -> x
+        | _ -> raise (Invalid_argument "satisfies: decoder"));
+    encoder =
+      (fun v ->
+        if cond v then encoder v
+        else raise (Invalid_argument "satisfies: encoder"));
+  }
+
 module Decoding = struct
   type 'a encoding = 'a t
 

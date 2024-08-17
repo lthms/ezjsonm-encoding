@@ -485,6 +485,22 @@ val union : 'a t list -> 'a t
       (* Null *)
     ]} *)
 
+val satisfies : ('a -> bool) -> 'a t -> 'a t
+(** [satisfies cond enc] restricts the domain of [enc] to values satisfying
+    [cond].
+
+    {[
+      open Ezjsonm_encoding
+
+      let ranged_int = satisfies (fun i -> 2 < i && i <= 5) int
+
+      let json1 = to_value ranged_int 1
+      (* None *)
+
+      let json2 = to_value ranged_int 3
+      (* Some (`Float 3) *)
+    ]} *)
+
 module Decoding : sig
   type 'a encoding = 'a t
 

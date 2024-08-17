@@ -471,6 +471,9 @@ module Decoding : sig
   val string : string t
   (** [string] decodes the input Json value as a string. *)
 
+  val int : int t
+  (** [int] decodes the input Json value as an integer. *)
+
   val int64 : int64 t
   (** [int64] decodes the input Json value as an 64-byte integer. *)
 

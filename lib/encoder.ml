@@ -30,3 +30,8 @@ let string_enum l value =
     | (a, b) :: l -> if compare b x = 0 then a else assoc_rev x l
   in
   Ezjsonm.string @@ assoc_rev value l
+
+let rec union cases v =
+  match cases with
+  | d :: rst -> ( try d v with _exn -> union rst v)
+  | [] -> failwith "not matching cases"

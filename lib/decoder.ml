@@ -58,3 +58,8 @@ let rec mu : ('a t -> 'a t) -> 'a t =
  fun f_enc value -> (f_enc (mu f_enc)) value
 
 let float = Ezjsonm.get_float
+
+let rec union cases v =
+  match cases with
+  | d :: rst -> ( try d v with _exn -> union rst v)
+  | [] -> failwith "not matching cases"

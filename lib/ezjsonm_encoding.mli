@@ -396,6 +396,47 @@ val merge_objs : 'a t -> 'b t -> ('a * 'b) t
         (* `O [("bar", `Bool true); ("foo", `String "hello"); ("foobar", `Float 1.)] *)
     ]} *)
 
+val case : ('a -> 'b option) -> ('b -> 'a) -> 'b t -> 'a t
+(** [case proj inj enc] is a partial encoding that can be used to encode and decode
+    a subset of the values of the type domain. It is typically used with {!union}. *)
+
+val union : 'a t list -> 'a t
+(** [union cases] is the union of several partial encoding. It can be used to
+    decode and encode algebraic data type. Cases are tried in order, {i i.e.},
+    the first encoding which works is selected.
+
+    [union] is compatible with {!merge_objs} if every encoding in [cases]
+    matches objects.
+
+    {[
+      open Ezjsonm_encoding
+
+      type id = Number of int | String of string | Null
+
+      let id_encoding =
+        union
+          [
+            case (function Number i -> Some i | _ -> None) (fun i -> Number i) int;
+            case
+              (function String s -> Some s | _ -> None)
+              (fun s -> String s)
+              string;
+            case (function Null -> Some () | _ -> None) (fun () -> Null) null;
+          ]
+
+      let json = to_value_exn id_encoding (Number 1)
+      (* `String "on" *)
+
+      let id = from_string_exn id_encoding {|1|}
+      (* Number 1 *)
+
+      let json = to_value_exn id_encoding Null
+      (* `Null *)
+
+      let id = from_string_exn id_encoding {|null|}
+      (* Null *)
+    ]} *)
+
 module Decoding : sig
   type 'a encoding = 'a t
 

@@ -238,6 +238,18 @@ let merge_objs j1 j2 =
     decoder = (fun json -> (j1.decoder json, j2.decoder json));
   }
 
+let case f g j =
+  conv
+    (fun v ->
+      match f v with Some x -> x | None -> failwith "Invalid argument")
+    g j
+
+let union cases =
+  {
+    decoder = Decoder.union (List.map (fun { decoder; _ } -> decoder) cases);
+    encoder = Encoder.union (List.map (fun { encoder; _ } -> encoder) cases);
+  }
+
 module Decoding = struct
   type 'a encoding = 'a t
 

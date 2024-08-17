@@ -31,4 +31,4 @@
   odoc
   utop
   (ocamlformat
-   (= 0.26.1))))
+   (= 0.26.2))))

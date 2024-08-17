@@ -9,6 +9,7 @@ let bool = Ezjsonm.bool
 let list = Ezjsonm.list
 let int64 = Ezjsonm.int64
 let int = Ezjsonm.int
+let null = Ezjsonm.unit
 
 let field : string -> 'a t -> 'a -> Ezjsonm.value -> Ezjsonm.value =
  fun name enc value json ->

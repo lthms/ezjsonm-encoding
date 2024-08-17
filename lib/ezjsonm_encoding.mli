@@ -170,6 +170,19 @@ val int : int t
         (* 1 *)
     ]} *)
 
+val null : unit t
+(** The encoding which maps JSON null and OCaml unit.
+
+    {[
+      open Ezjsonm_encoding
+
+      let json = to_value_exn null ()
+        (* `Null *)
+
+      let str = from_string_exn null "null"
+        (* 1 *)
+    ]} *)
+
 val bool : bool t
 (** The encoding which maps JSON booleans and OCaml booleans.
 
@@ -446,6 +459,9 @@ module Decoding : sig
 
   val float : float t
   (** [float] decodes the input Json value as a float. *)
+
+  val null : unit t
+  (** [null] decodes the [Null] input Json value as the unit. *)
 
   val string_enum : (string * 'a) list -> 'a t
   (** [string_enum l] decodes the input Json value as a string, then

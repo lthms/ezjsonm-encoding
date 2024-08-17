@@ -19,6 +19,8 @@ module Syntax = struct
   let return x _value = x
 end
 
+let obj0 = function `O _ -> () | _ -> failwith "not an object"
+
 let field str enc value =
   try enc (Ezjsonm.find value [ str ]) with
   | Not_found -> failwith (str ^ " not found")
@@ -37,6 +39,7 @@ let list enc = Ezjsonm.get_list enc
 let string = Ezjsonm.get_string
 let int64 = Ezjsonm.get_int64
 let int = Ezjsonm.get_int
+let null = Ezjsonm.get_unit
 
 let string_enum l =
   let open Syntax in

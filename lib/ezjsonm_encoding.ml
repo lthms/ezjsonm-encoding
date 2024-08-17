@@ -42,6 +42,7 @@ let list { decoder; encoder } =
 
 let int64 = { decoder = Decoder.int64; encoder = Encoder.int64 }
 let int = { decoder = Decoder.int; encoder = Encoder.int }
+let null = { decoder = Decoder.null; encoder = Encoder.null }
 let bool = { decoder = Decoder.bool; encoder = Encoder.bool }
 
 type 'a field = {
